@@ -6,6 +6,10 @@
 
 ### /Заметки
 
+<IfModule mod_rewrite.c>
+# Код
+</IfModule>
+
 
 
 ### ### ### ### ### ### ### ### ### ### ### ###
@@ -25,6 +29,10 @@ RewriteEngine On
 # RewriteRule ^.htaccess$ - [F]
 
 
+# Указывает корень сайта.
+RewriteRule ^(.*)$ /public/$1 [L]
+
+
 ### ### ### ### ### ### ### ### ### ### ### ###
 
 # ЕДИНАЯ ТОЧКА ВХОДА
@@ -33,9 +41,10 @@ RewriteEngine On
 # Если вызывается СУЩЕСТВУЮЩИЙ файл - откроется файл, иначе перенаправит в индекс (тогда будет адрес "123.com/index.php")
 # В корне сервера имена файлов не должны совпадать с именами папок, иначе откроется папка (на хостинге выдаст 503, на локалке - откроет папку)
 
-RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ /index.php
+# RewriteRule ^ index.php [L]
 
 ### ### ### ### ### ### ### ### ### ### ### ###
 
