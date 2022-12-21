@@ -7,38 +7,42 @@
 
 
 
-    ### Робит на хостингере
-    ### НЕ Робит на fozzy (беск переадресации из-за бага с public)  (но норм редиректит даже когда закомментил)
-    # Редирект на SSL
+
+    ####### ####### ####### ####### ####### #######
+    #### <== Редирект на SSL ==> ####
+
+    ## v1 ##
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
-    
-    # Added to Force HTTPS    НЕ ТЕСТИЛ
+    ## Итого: Робит на хостингере / НЕ Робит на fozzy(беск переадресации из-за бага с public)
+
+    ## v2 - НЕ ТЕСТИЛ ##
+    # RewriteCond %{HTTPS} off
+    # RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+
+    ## v3 - НЕ ТЕСТИЛ ##  Сильно хуже, тк надо указывать домен.
     # RewriteCond %{HTTP_HOST} mydomain\.com [NC]
     # RewriteCond %{SERVER_PORT} 80
     # RewriteRule ^(.*)$ https://mydomain/$1 [R,L]
-    
-    # не тестил
-    # RewriteCond %{HTTPS} off
-    # RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
-    
-    
-    
-    
-    ### Робит на хостингере
-    ### Робит на fozzy
-    # Редирект на без www
+
+
+
+
+    ####### ####### ####### ####### ####### #######
+    #### <== Редирект на без www ==> ####
+
     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+    ## Итого: Робит на хостингере / Робит на fozzy
 
-    ###
-    
-    
-    
-    
-    ####### ####### #######
-    # Ниже ларавелевское, не трогать
-    
+
+
+
+
+
+    ####### ####### ####### ####### ####### #######
+    #### <== Ларавелевское, не трогать ==> ####
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -52,8 +56,8 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-    
-    ####### ####### #######
-    
-    
+
+    ####### ####### ####### ####### ####### #######
+
+
 </IfModule>
