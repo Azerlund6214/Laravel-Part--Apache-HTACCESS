@@ -1,5 +1,8 @@
 
 
+!!!! https://www.htaccessredirect.net/
+
+
 #RewriteRule ^dropsite$ delete.php [L,R=301]  # Редиректит, но тестить на хосте
 #RewriteRule ^dropsite$ /resources/delete-All-Site-Files.php [L,R=301]  # Редиректит, но тестить на хосте
 #RewriteRule ^/dropsite/$ delete.php [L,R]
