@@ -1,0 +1,65 @@
+# BEGIN
+
+### Заметки
+
+# Коменарий и код делать на разных строках, не смешивать - может быть 500
+
+### /Заметки
+
+
+
+### ### ### ### ### ### ###
+
+AddDefaultCharset UTF-8
+
+Options +FollowSymLinks
+RewriteEngine On
+# RewriteRule ^.htaccess$ - [F]
+
+
+
+# ВСЕ запросы теперь идут через индекс (нужно для пагинации типа www.123.com/abc/def )
+# Если вызывается СУЩЕСТВУЮЩИЙ файл - откроется файл, иначе индекс(и это будет как адрес сраницы)
+# Имена не должны совпадать с именами папок в корне, иначе откроется папка (на хостинге выдаст 503, на локалке - откроет папку)
+### ### ### ###
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.php
+### ### ### ###
+
+
+
+
+# РЕДИРЕКТ С WWW
+### ### ### ###
+# Здесь выполняем 301 редирект с www на без www (работает)
+RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Здесь выполняем 301 редирект с без www на с www (работает)
+#RewriteCond %{HTTP_HOST} ^awc-capital\.com$ [NC]
+#RewriteRule ^(.*)$ https://www.awc-capital.com/$1 [R=301,L]
+# Сделать универсальным, чтоб не писать каждый раз домен
+### ### ### ###
+
+
+
+# ОБРАБОТКА PHP В ДРУГИХ ФАЙЛАХ
+### ### ### ###
+# Включаем обработку php внутри html
+# (иначе виден пхп код при прямом открытии .html)
+
+AddType application/x-httpd-php .html .htm
+
+#AddHandler x-httpd-php .php .js .html
+
+#<FilesMatch "\.(php|html)$">
+#SetHandler application/x-httpd-php
+#</FilesMatch>
+### ### ### ###
+
+
+
+### ### ### ### ### ### ###
+
+# END
