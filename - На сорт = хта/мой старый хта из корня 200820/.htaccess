@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+
+# Универсальный вариант. Все работает как надо.
+#RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+#RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+
+#RewriteEngine on
+#RewriteRule ^(.*)$ public/$1 [L]
+
+
+</IfModule>
